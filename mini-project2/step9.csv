@@ -1,0 +1,78 @@
+ProductID,ProductName,ProductUnitPrice,ProductCategoryID
+1,Alice Mutton,39.0,6
+2,Aniseed Syrup,10.0,2
+3,Boston Crab Meat,18.4,8
+4,Camembert Pierrot,34.0,4
+5,Carnarvon Tigers,62.5,8
+6,Chai,18.0,1
+7,Chang,19.0,1
+8,Chartreuse verte,18.0,1
+9,Chef Anton's Cajun Seasoning,22.0,2
+10,Chef Anton's Gumbo Mix,21.35,2
+11,Chocolade,12.75,3
+12,Cote de Blaye,263.5,1
+13,Escargots de Bourgogne,13.25,8
+14,Filo Mix,7.0,5
+15,Flotemysost,21.5,4
+16,Geitost,2.5,4
+17,Genen Shouyu,15.5,2
+18,Gnocchi di nonna Alice,38.0,5
+19,Gorgonzola Telino,12.5,4
+20,Grandma's Boysenberry Spread,25.0,2
+21,Gravad lax,26.0,8
+22,Guarana Fantastica,4.5,1
+23,Gudbrandsdalsost,36.0,4
+24,Gula Malacca,19.45,2
+25,Gumbar Gummibarchen,31.23,3
+26,Gustaf's Knackebrod,21.0,5
+27,Ikura,31.0,8
+28,Inlagd Sill,19.0,8
+29,Ipoh Coffee,46.0,1
+30,Jack's New England Clam Chowder,9.65,8
+31,Konbu,6.0,8
+32,Lakkalikoori,18.0,1
+33,Laughing Lumberjack Lager,14.0,1
+34,Longlife Tofu,10.0,7
+35,Louisiana Fiery Hot Pepper Sauce,21.05,2
+36,Louisiana Hot Spiced Okra,17.0,2
+37,Manjimup Dried Apples,53.0,7
+38,Mascarpone Fabioli,32.0,4
+39,Maxilaku,20.0,3
+40,Mishi Kobe Niku,97.0,6
+41,Mozzarella di Giovanni,34.8,4
+42,Nord-Ost Matjeshering,25.89,8
+43,Northwoods Cranberry Sauce,40.0,2
+44,NuNuCa Nu-Nougat-Creme,14.0,3
+45,Original Frankfurter grune Soe,13.0,2
+46,Outback Lager,15.0,1
+47,Pate chinois,24.0,6
+48,Pavlova,17.45,3
+49,Perth Pasties,32.8,6
+50,Queso Cabrales,21.0,4
+51,Queso Manchego La Pastora,38.0,4
+52,Raclette Courdavault,55.0,4
+53,Ravioli Angelo,19.5,5
+54,Rhonbrau Klosterbier,7.75,1
+55,Rod Kaviar,15.0,8
+56,Rogede sild,9.5,8
+57,Rossle Sauerkraut,45.6,7
+58,Sasquatch Ale,14.0,1
+59,Schoggi Schokolade,43.9,3
+60,Scottish Longbreads,12.5,3
+61,Singaporean Hokkien Fried Mee,14.0,5
+62,Sir Rodney's Marmalade,81.0,3
+63,Sir Rodney's Scones,10.0,3
+64,Sirop d'erable,28.5,2
+65,Spegesild,12.0,8
+66,Steeleye Stout,18.0,1
+67,Tarte au sucre,49.3,3
+68,Teatime Chocolate Biscuits,9.2,3
+69,Thuringer Rostbratwurst,123.79,6
+70,Tofu,23.25,7
+71,Tourtiere,7.45,6
+72,Tunnbrod,9.0,5
+73,Uncle Bob's Organic Dried Pears,30.0,7
+74,Valkoinen suklaa,16.25,3
+75,Vegie-spread,43.9,2
+76,Wimmers gute Semmelknodel,33.25,5
+77,Zaanse koeken,9.5,3

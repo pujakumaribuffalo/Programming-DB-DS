@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mini-Project &num;2</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+/* From extension ms-toolsai.jupyter */
+/* These classnames are inherited from bootstrap, but are present in most notebook renderers */
+
+.alert {
+    width: auto;
+    padding: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.alert > *:last-child {
+    margin-bottom: 0;
+}
+#preview > .alert:last-child {
+    /* Prevent this being set to zero by the default notebook stylesheet */
+    padding-bottom: 1em;
+}
+
+.alert-success {
+    /* Note there is no suitable color available, so we just copy "info" */
+    background-color: var(--theme-info-background);
+    color: var(--theme-info-foreground);
+}
+.alert-info {
+    background-color: var(--theme-info-background);
+    color: var(--theme-info-foreground);
+}
+.alert-warning {
+    background-color: var(--theme-warning-background);
+    color: var(--theme-warning-foreground);
+}
+.alert-danger {
+    background-color: var(--theme-error-background);
+    color: var(--theme-error-foreground);
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="mini-project-2">Mini-Project #2</h1>
+<h3 id="objectives-of-lab-2">Objectives of Lab 2</h3>
+<ol>
+<li>Parse a large 'messy' file</li>
+<li>Create a normalized database from a large 'messy' file</li>
+<li>Optimize code to load 600,000+ rows into a database quickly</li>
+<li>Practice SQL queries</li>
+</ol>
+<h3 id="description-of-data">Description of data</h3>
+<p>Open <code>lab2_data.csv</code> file and understand its contents. The file consists
+of 11 columns separated by tab and each row is a customer with all of the products they have ordered. The columns are:</p>
+<ol>
+<li>Name -- The <code>Name</code> column is made up of the customer <code>FirstName</code> and <code>LastName</code> separated by a space</li>
+<li>Address -- The <code>Address</code> column has the customer address</li>
+<li>City -- The <code>City</code> column has the customer city</li>
+<li>Country -- The <code>Country</code> column has the customer country</li>
+<li>Region -- The <code>Region</code> column has the customer region</li>
+<li>ProductName*</li>
+<li>ProductCategory*</li>
+<li>ProductCategoryDescription*</li>
+<li>ProductUnitPrice*</li>
+<li>QuantityOrderded*</li>
+<li>OrderDate*</li>
+</ol>
+<p>All the <code>*</code> columns are linked, meaning if you split the columns on a semicolon and zip them up, you will get one product name, product category, product category description, product unit price, quantity ordered, and ordered date. Remember, each row/line in the data represents a customer and all their product orders. The product orders are separated by a semicolon.</p>
+<p>In this lab you will parse the data file and create a normalized database with six tables. To make this lab manageable, I will lay down the steps you need to create the following tables:</p>
+<pre><code class="language-SQL">Region 
+  [RegionID] <span class="hljs-type">Integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">primary</span> key
+  [Region] Text <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+Country
+  [CountryID] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">Primary</span> key
+  [Country] Text <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+  [RegionID] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">foreign</span> key <span class="hljs-keyword">to</span> Region <span class="hljs-keyword">table</span>
+Customer
+  [CustomerID] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">Primary</span> Key
+  [FirstName] Text <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+  [LastName] Text <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+  [Address] Text <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+  [City] Text <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+  [CountryID] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">foreign</span> key <span class="hljs-keyword">to</span> Country <span class="hljs-keyword">table</span> 
+ProductCateogry
+  [ProductCategoryID] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">Primary</span> Key
+  [ProductCategory] Text <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+  [ProductCategoryDescription] Text <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+Product
+  [ProductID] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">Primary</span> key
+  [ProductName] Text <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+  [ProductUnitPrice] <span class="hljs-type">Real</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+  [ProductCategoryID] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">foreign</span> key <span class="hljs-keyword">to</span> ProductCateogry <span class="hljs-keyword">table</span>
+OrderDetail
+  [OrderID] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">Primary</span> Key
+  [CustomerID] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">foreign</span> key <span class="hljs-keyword">to</span> Customer <span class="hljs-keyword">table</span>
+  [ProductID] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">foreign</span> key <span class="hljs-keyword">to</span> Product <span class="hljs-keyword">table</span>
+  [OrderDate] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> 
+  [QuantityOrdered] <span class="hljs-type">integer</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+</code></pre>
+<h3 id="hints">Hints</h3>
+<p>Note: The <code>create_table</code> function has been updated. Please study it and try to understand how it is different. You can now use it to drop a table before inserting into it. This is useful because you do not have to start from scratch. You can drop an individual table before recreating it if it exists.</p>
+<p>Also checkout out this link to understand how <code>executemany</code> works: <a href="https://www.kite.com/python/docs/sqlite3.Cursor.executemany">https://www.kite.com/python/docs/sqlite3.Cursor.executemany</a> and incorporate it into your insert_table functions. If you use <code>execute</code>, your insertions will be very slow. If you have only one value to insert, the values tuple will look like</p>
+<pre><code class="language-python">values = ((<span class="hljs-string">&#x27;Graduate&#x27;</span>, ), (<span class="hljs-string">&#x27;Undergraduate&#x27;</span>,))
+</code></pre>
+<p>Always, always use the <code>with</code> context to insert.</p>
+<h4 id="note-if-you-do-not-use-executemany-i-will-take-points-off">Note: If you do not use <code>executemany</code>, I will take points off</h4>
+<h1 id="do-not-use-pandas-to-manipulate-the-data-i-will-deduct-points-for-using-pandas">DO NOT USE PANDAS to manipulate the data; I will deduct points for using PANDAS;</h1>
+<h1 id="do-not-use-csv-module-to-read-the-data-i-will-deduct-points-for-using-the-csv-module">DO NOT USE CSV module to read the data; I will deduct points for using the CSV module;</h1>
+<h1 id="step-1---create-the-region-table">Step 1 - Create the Region Table</h1>
+<h3 id="tasks">Tasks</h3>
+<ol>
+<li>Loop over the data and find the distinct regions</li>
+<li>Create the region table</li>
+<li>Populate the region table with the distinct regions. Make sure to sort the regions before inserting.</li>
+</ol>
+<h1 id="step-2---create-dictionary-to-map-region-to-regionid">Step 2 - Create dictionary to map Region to RegionID</h1>
+<p>The purpose of this step is to create a dictionary to look up the primary key lookup for a given region.</p>
+<p>Tasks</p>
+<ol>
+<li>Write an SQL query to fetch all the rows from the Region table</li>
+<li>Transform the row into a dictionary whose key is Region and value is RegionID</li>
+</ol>
+<h1 id="step-3---create-the-country-table">Step 3 - Create the Country Table</h1>
+<p>Note: You will be using <code>region_to_regionid_dict</code> in this step when inserting into the country table. You can access <code>region_to_regionid_dict</code> by calling the function in step2 inside step3.</p>
+<h3 id="tasks">Tasks</h3>
+<ol>
+<li>Loop over the data and find the distinct countries and region combo</li>
+<li>Create the country table</li>
+<li>Populate the country table with the distinct countries and regio combo. Make sure to sort the countries before inserting.</li>
+</ol>
+<h1 id="step-4---create-dictionary-to-map-country-to-countryid">Step 4 - Create dictionary to map Country to CountryID</h1>
+<p>The purpose of this step is to create a dictionary to look up the primary key lookup for a given country.</p>
+<p>Tasks</p>
+<ol>
+<li>Write an SQL query to fetch all the rows from the Country table</li>
+<li>Transform the row into a dictionary whose key is Country and value is CountryID</li>
+</ol>
+<h1 id="step-5---create-the-customer-table">Step 5 - Create the customer table</h1>
+<p>Note: You will be  <code>country_to_countryid_dict</code> in this step when inserting into the customer table. You can access <code>country_to_countryid_dict</code> by calling the function in step4 inside step5.</p>
+<p>Tasks</p>
+<ol>
+<li>Loop over the data file and grab the name, address, city, country and region</li>
+<li>Create the customer table</li>
+<li>Populate the customer table</li>
+</ol>
+<h3 id="note">NOTE!</h3>
+<ul>
+<li>One of name when split on space results in three elements. In this case, the first name is the first element and the other two elements in the last name.</li>
+<li>Insert the names sorted by first and lastname as one string. Hint: user lambda to combine first and last name and sort.</li>
+</ul>
+<h1 id="step-6---create-dictionary-to-map-name-firstname-lastname-to-customerid">Step 6 - Create dictionary to map Name (FirstName LastName) to CustomerID</h1>
+<p>The purpose of this step is to create a dictionary to look up the primary key lookup for a given name (FirstName LastName)</p>
+<p>Tasks</p>
+<ol>
+<li>Write an SQL query to fetch all the rows from the Customer table</li>
+<li>Transform the row into a dictionary whose key is the name of the customer (FirstName LastName) and value is CustomerID</li>
+</ol>
+<h1 id="step-7---create-product-category-table">Step 7 - Create Product Category Table</h1>
+<h3 id="tasks">Tasks</h3>
+<ol>
+<li>Loop over the data and find the distinct product categories</li>
+<li>Create the product category table</li>
+<li>Populate the product category table with the distinct product categories. Make sure to sort the categories before inserting.</li>
+</ol>
+<h1 id="step-8---create-dictionary-to-map-productcategory-to-productcategoryid">Step 8 - Create dictionary to map productcategory to productcategoryid</h1>
+<p>The purpose of this step is to create a dictionary to look up the primary key lookup for a given product category</p>
+<p>Tasks</p>
+<ol>
+<li>Write an SQL query to fetch all the rows from the product category table</li>
+<li>Transform the row into a dictionary whose key is the product category and value is product category id</li>
+</ol>
+<h1 id="step-9---create-product-table">Step 9 - Create Product Table</h1>
+<p>Note: You will be using <code>productcategory_to_productcategoryid_dict</code> in this step when inserting into the product table.</p>
+<h3 id="tasks">Tasks</h3>
+<ol>
+<li>Loop over the data and find the distinct products</li>
+<li>Create the product table</li>
+<li>Populate the product table with the distinct products. Make sure to sort the products (by name) before inserting.</li>
+</ol>
+<h1 id="step-10---create-dictionary-to-map-product-to-productid">Step 10 - Create dictionary to map product to productid</h1>
+<p>The purpose of this step is to create a dictionary to look up the primary key lookup for a given product</p>
+<p>Tasks</p>
+<ol>
+<li>Write an SQL query to fetch all the rows from the product table</li>
+<li>Transform the row into a dictionary whose key is the product and value is product id</li>
+</ol>
+<h1 id="step-11---create-orderdetail-table">Step 11 - Create OrderDetail Table</h1>
+<p>Note: You will be using <code>product_to_productid_dict</code> and <code>customer_to_customerid_dict</code>
+in this step when inserting into the order detail table.</p>
+<h3 id="tasks">Tasks</h3>
+<ol>
+<li>Loop over the data and figure out the orders</li>
+<li>Create the orderdetails table</li>
+<li>Populate the orderdetails table with the orders</li>
+</ol>
+<h3 id="hint">Hint</h3>
+<ul>
+<li>convert orderdate to format '%Y-%m-%d'</li>
+</ul>
+<pre><code class="language-python"><span class="hljs-keyword">import</span> datetime.datetime
+datetime.datetime.strptime(input_date, <span class="hljs-string">&#x27;%Y%m%d&#x27;</span>).strftime(<span class="hljs-string">&#x27;%Y-%m-%d&#x27;</span>)
+</code></pre>
+<ul>
+<li>convert quantity ordered to int!</li>
+</ul>
+
+        
+        
+    </body>
+    </html>

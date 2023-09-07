@@ -1,0 +1,92 @@
+CustomerID,FirstName,LastName,Address,City,CountryID
+1,Alejandra,Camino,"Gran Via, 1",Madrid,16
+2,Alexander,Feuer,Heerstr. 22,Leipzig,9
+3,Ana,Trujillo,Avda. de la Constitucion 2222,Mexico D.F.,12
+4,Anabela,Domingues,"Av. Ines de Castro, 414",Sao Paulo,4
+5,Andre,Fonseca,"Av. Brasil, 442",Campinas,4
+6,Ann,Devon,35 King George,London,19
+7,Annette,Roulet,1 rue Alsace-Lorraine,Toulouse,8
+8,Antonio,Moreno,Mataderos  2312,Mexico D.F.,12
+9,Aria,Cruz,"Rua Oros, 92",Sao Paulo,4
+10,Art,Braunschweiger,P.O. Box 555,Lander,20
+11,Bernardo,Batista,"Rua da Panificadora, 12",Rio de Janeiro,4
+12,Carine,Schmitt,"54, rue Royale",Nantes,8
+13,Carlos,Gonzalez,Carrera 52 con Ave. Bolivar #65-98 Llano Largo,Barquisimeto,21
+14,Carlos,Hernandez,Carrera 22 con Ave. Carlos Soublette #8-35,San Cristobal,21
+15,Catherine,Dewey,Rue Joseph-Bens 532,Bruxelles,3
+16,Christina,Berglund,Berguvsvagen  8,Lulea,17
+17,Daniel,Tonini,"67, avenue de l'Europe",Versailles,8
+18,Diego,Roel,"C/ Moralzarzal, 86",Madrid,16
+19,Dominique,Perrier,"25, rue Lauriston",Paris,8
+20,Eduardo,Saavedra,"Rambla de Cataluna, 23",Barcelona,16
+21,Elizabeth,Brown,Berkeley Gardens 12  Brewery,London,19
+22,Elizabeth,Lincoln,23 Tsawassen Blvd.,Tsawassen,5
+23,Felipe,Izquierdo,Ave. 5 de Mayo Porlamar,I. de Margarita,21
+24,Fran,Wilson,89 Chiaroscuro Rd.,Portland,20
+25,Francisco,Chang,Sierras de Granada 9993,Mexico D.F.,12
+26,Frederique,Citeaux,"24, place Kleber",Strasbourg,8
+27,Georg,Pipps,Geislweg 14,Salzburg,2
+28,Giovanni,Rovelli,Via Ludovico il Moro 22,Bergamo,11
+29,Guillermo,Fernandez,Calle Dr. Jorge Cash 321,Mexico D.F.,12
+30,Hanna,Moos,Forsterstr. 57,Mannheim,9
+31,Hari,Kumar,90 Wadhurst Rd.,London,19
+32,Helen,Bennett,Garden House Crowther Way,Cowes,19
+33,Helvetius,Nagy,722 DaVinci Blvd.,Kirkland,20
+34,Henriette,Pfalzheim,Mehrheimerstr. 369,Koln,9
+35,Horst,Kloss,Taucherstrae 10,Cunewalde,9
+36,Howard,Snyder,2732 Baker Blvd.,Eugene,20
+37,Isabel,de Castro,Estrada da saude n. 58,Lisboa,15
+38,Jaime,Yorres,87 Polk St. Suite 5,San Francisco,20
+39,Janete,Limeira,"Av. Copacabana, 267",Rio de Janeiro,4
+40,Janine,Labrune,"67, rue des Cinquante Otages",Nantes,8
+41,Jean,Fresniere,43 rue St. Laurent,Montreal,5
+42,John,Steel,12 Orchestra Terrace,Walla Walla,20
+43,Jonas,Bergulfsen,Erling Skakkes gate 78,Stavern,13
+44,Jose,Pavarotti,187 Suffolk Ln.,Boise,20
+45,Jose,Pedro Freyre,"C/ Romero, 33",Sevilla,16
+46,Jytte,Petersen,Vinbltet 34,Kobenhavn,6
+47,Karin,Josephs,Luisenstr. 48,Munster,9
+48,Karl,Jablonski,305 - 14th Ave. S. Suite 3B,Seattle,20
+49,Laurence,Lebihan,"12, rue des Bouchers",Marseille,8
+50,Lino,Rodriguez,Jardim das rosas n. 32,Lisboa,15
+51,Liu,Wong,55 Grizzly Peak Rd.,Butte,20
+52,Liz,Nixon,89 Jefferson Way Suite 2,Portland,20
+53,Lucia,Carvalho,"Alameda dos Canarios, 891",Sao Paulo,4
+54,Manuel,Pereira,5 Ave. Los Palos Grandes,Caracas,21
+55,Maria,Anders,Obere Str. 57,Berlin,9
+56,Maria,Larsson,Akergatan 24,Bracke,17
+57,Marie,Bertrand,"265, boulevard Charonne",Paris,8
+58,Mario,Pontes,"Rua do Paco, 67",Rio de Janeiro,4
+59,Martin,Sommer,"C/ Araquil, 67",Madrid,16
+60,Martine,Rance,"184, chaussee de Tournai",Lille,8
+61,Mary,Saveley,"2, rue du Commerce",Lyon,8
+62,Matti,Karttunen,Keskuskatu 45,Helsinki,7
+63,Maurizio,Moroni,Strada Provinciale 124,Reggio Emilia,11
+64,Michael,Holz,Grenzacherweg 237,Geneve,18
+65,Miguel,Angel Paolino,Avda. Azteca 123,Mexico D.F.,12
+66,Palle,Ibsen,Smagsloget 45,Arhus,6
+67,Paolo,Accorti,Via Monte Bianco 34,Torino,11
+68,Pascale,Cartrain,"Boulevard Tirou, 255",Charleroi,3
+69,Patricia,McKenna,8 Johnstown Road,Cork,10
+70,Patricio,Simpson,Cerrito 333,Buenos Aires,1
+71,Paul,Henriot,59 rue de l'Abbaye,Reims,8
+72,Paula,Parente,"Rua do Mercado, 12",Resende,4
+73,Paula,Wilson,2817 Milton Dr.,Albuquerque,20
+74,Pedro,Afonso,"Av. dos Lusiadas, 23",Sao Paulo,4
+75,Peter,Franken,Berliner Platz 43,Munchen,9
+76,Philip,Cramer,Maubelstr. 90,Brandenburg,9
+77,Pirkko,Koskitalo,Torikatu 38,Oulu,7
+78,Renate,Messner,Magazinweg 7,Frankfurt a.M.,9
+79,Rene,Phillips,2743 Bering St.,Anchorage,20
+80,Rita,Muller,Adenauerallee 900,Stuttgart,9
+81,Roland,Mendel,Kirchgasse 6,Graz,2
+82,Sergio,Gutierrez,Av. del Libertador 900,Buenos Aires,1
+83,Simon,Crowther,South House 300 Queensbridge,London,19
+84,Sven,Ottlieb,Walserweg 21,Aachen,9
+85,Thomas,Hardy,120 Hanover Sq.,London,19
+86,Victoria,Ashworth,Fauntleroy Circus,London,19
+87,Yang,Wang,Hauptstr. 29,Bern,18
+88,Yoshi,Latimer,City Center Plaza 516 Main St.,Elgin,20
+89,Yoshi,Tannamuri,1900 Oak St.,Vancouver,5
+90,Yvonne,Moncada,Ing. Gustavo Moncada 8585 Piso 20-A,Buenos Aires,1
+91,Zbyszek,Piestrzeniewicz,ul. Filtrowa 68,Warszawa,14
