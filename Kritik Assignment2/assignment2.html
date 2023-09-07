@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Assignment 2</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="assignment-2">Assignment 2</h1>
+<p>Kaeleigh has emailed you a CSV file with four columns: UBID, enrollment date, graduation date, and student type (either Full-Time or Part-Time). She has requested that you develop a program to filter the file in order to identify students who meet specific criteria. Specifically, you need to identify full-time students who took more than four years to graduate and part-time students who took more than seven years to graduate. The resulting CSV file should only include the students who meet these criteria. It should have the same columns as the original file, including the header row, and an additional column called &quot;NumberOfYears.&quot;</p>
+<h2 id="guideline">Guideline</h2>
+<p><strong>PLEASE READ CAREFULLY!!!</strong></p>
+<ol>
+<li>Filter <code>input.csv</code> to create a new file called <code>output.csv</code></li>
+<li>Just take the difference between the year and do not worry about months.</li>
+<li>Submit the complete code and answer to each question as an HTML file converted from markdown. Just modify the attached markdown file.</li>
+<li>When grading, run the code to verify the output and then grade the answers to each question to assess if they make sense.</li>
+</ol>
+<h2 id="working-code">Working Code</h2>
+<pre><code class="language-python">
+<span class="hljs-comment"># Open the input file for reading</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">filter_students</span>(<span class="hljs-params">input_file, output_file</span>):
+    input_file = <span class="hljs-string">&#x27;input.csv&#x27;</span>
+    output_file = <span class="hljs-string">&#x27;output.csv&#x27;</span>
+    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(input_file, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> file:
+        lines = file.readlines()
+        header = lines[<span class="hljs-number">0</span>].strip().split(<span class="hljs-string">&#x27;,&#x27;</span>)
+        header.append(<span class="hljs-string">&#x27;NumberOfYears&#x27;</span>)
+
+        filtered_rows = [header]
+
+        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> lines[<span class="hljs-number">1</span>:]:
+            row = line.strip().split(<span class="hljs-string">&#x27;,&#x27;</span>)
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">any</span>(row):
+                <span class="hljs-keyword">continue</span>
+
+            ubid = row[<span class="hljs-number">0</span>]
+            enrollment_date = row[<span class="hljs-number">1</span>]
+            graduation_date = row[<span class="hljs-number">2</span>]
+            student_type = row[<span class="hljs-number">3</span>]
+
+            enrollment_year = <span class="hljs-built_in">int</span>(enrollment_date[-<span class="hljs-number">4</span>:])
+            graduation_year = <span class="hljs-built_in">int</span>(graduation_date[-<span class="hljs-number">4</span>:])
+            number_of_years = graduation_year - enrollment_year
+
+            <span class="hljs-keyword">if</span> (student_type == <span class="hljs-string">&#x27;Full-Time&#x27;</span> <span class="hljs-keyword">and</span> number_of_years &gt; <span class="hljs-number">4</span>) <span class="hljs-keyword">or</span> (student_type == <span class="hljs-string">&#x27;Part-Time&#x27;</span> <span class="hljs-keyword">and</span> number_of_years &gt; <span class="hljs-number">7</span>):
+                row.append(<span class="hljs-built_in">str</span>(number_of_years))
+                filtered_rows.append(row)
+
+    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(output_file, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> output_file:
+        <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> filtered_rows:
+            output_file.write(<span class="hljs-string">&#x27;,&#x27;</span>.join(row) + <span class="hljs-string">&#x27;\n&#x27;</span>)
+
+
+</code></pre>
+<h2 id="questions">Questions</h2>
+<p>For each question, reference the actual code and provide a brief explanation.</p>
+<ol>
+<li>
+<p>How do you open a file for reading?</p>
+<pre><code class="language-python"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;input.csv&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> file:
+</code></pre>
+<p>To open a file for reading, you can use the open() function with the file path and the mode 'r'. The with statement is used to ensure proper handling of file resources. The file is opened as file, and you can read its contents using methods like readlines()</p>
+</li>
+<li>
+<p>How do you handle the difference between a CSV and TSV file?</p>
+<p>In the given code, there is no specific handling for distinguishing between a CSV (comma-separated values) file and a TSV (tab-separated values) file. It assumes that the file is comma-separated. If you have a TSV file, where values are separated by tabs, you would need to modify the code accordingly. For example, you can split the lines using line.split('\t') to handle TSV files.</p>
+</li>
+<li>
+<p>How do you skip empty lines?</p>
+<pre><code class="language-python"><span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">any</span>(row):
+ <span class="hljs-keyword">continue</span>
+</code></pre>
+<p>To skip empty lines, we can check if any value exists in the current row using the any() function. If there are no values (i.e., the row is empty), the continue statement is used to move to the next iteration, skipping the empty line.</p>
+</li>
+<li>
+<p>How do you read one line at a time instead of reading the whole line at once?</p>
+<p>The code reads one line at a time by using a for loop. By iterating over the lines list starting from the second line (lines[1:]), each line is assigned to the line variable. Then, the line is stripped of leading/trailing whitespace using strip() and split into a list of values using split(',').</p>
+<pre><code class="language-python"><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> lines[<span class="hljs-number">1</span>:]:
+    row = line.strip().split(<span class="hljs-string">&#x27;,&#x27;</span>)
+</code></pre>
+</li>
+<li>
+<p>How do you update the header to include an an additional column?</p>
+<pre><code class="language-python">header = lines[<span class="hljs-number">0</span>].strip().split(<span class="hljs-string">&#x27;,&#x27;</span>)
+header.append(<span class="hljs-string">&#x27;NumberOfYears&#x27;</span>)
+</code></pre>
+<p>The header is extracted from the first line of the file (lines[0]). It is stripped of leading/trailing whitespace using strip() and split into a list of column names using split(','). Then, the additional column name, 'NumberOfYears', is appended to the header list using append().</p>
+</li>
+<li>
+<p>How do you apply the criteria specified in the question?</p>
+<pre><code class="language-python"><span class="hljs-keyword">if</span> (student_type == <span class="hljs-string">&#x27;Full-Time&#x27;</span> <span class="hljs-keyword">and</span> number_of_years &gt; <span class="hljs-number">4</span>) <span class="hljs-keyword">or</span> (student_type == <span class="hljs-string">&#x27;Part-Time&#x27;</span> <span class="hljs-keyword">and</span> number_of_years &gt; <span class="hljs-number">7</span>):
+   filtered_rows.append(row)
+ <span class="hljs-comment"># Code inside the if statement to handle the row meeting the criteria</span>
+</code></pre>
+<p>The code applies the criteria specified in the question using an if statement. It checks if the student type is &quot;Full-Time&quot; and the number of years is greater than 4, or if the student type is &quot;Part-Time&quot; and the number of years is greater than 7. If the criteria are met, the row list is appended to the filtered_rows lis.</p>
+</li>
+<li>
+<p>How do you open a file for writing?</p>
+<pre><code class="language-python"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;output.csv&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, newline=<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-keyword">as</span> output_file:
+ <span class="hljs-comment"># Code inside the block to write to the file</span>
+</code></pre>
+<p>To open a file for writing, we can use the open() function with the file path and the mode 'w'. The with statement is used to ensure proper handling of file resources. The file is opened as output_file, and we can perform the desired writing operations inside the block.</p>
+</li>
+<li>
+<p>How do you save the header to use for later?</p>
+<pre><code class="language-python">header = lines[<span class="hljs-number">0</span>].strip().split(<span class="hljs-string">&#x27;,&#x27;</span>)
+filtered_rows = [header]
+</code></pre>
+<p>The header is saved for later use by storing it in the header list. This list is initialized with the header row read from the input file. Later, when writing the filtered rows to the output file, the header is written first before writing the rows.</p>
+</li>
+<li>
+<p>How do you write the lines/rows that meet the criteria?</p>
+<pre><code class="language-python"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(output_file, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> output_file:
+<span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> filtered_rows:
+    output_file.write(<span class="hljs-string">&#x27;,&#x27;</span>.join(row) + <span class="hljs-string">&#x27;\n&#x27;</span>)
+</code></pre>
+<p>After filtering the rows, the code iterates over the filtered_rows list and writes each row to the output file using the write() method. The row values are joined into a string using ','.join(row), and a newline character is added at the end of each <a href="http://line.By">line.By</a> repeating this process for each row in the filtered_rows list, the code writes all the lines/rows that meet the criteria to the output file, with each row separated by a newline character.</p>
+</li>
+<li>
+<p>How do you handle the fact that some columns are string and others are ints when writing the lines/rows?</p>
+<pre><code class="language-python"><span class="hljs-keyword">if</span> (student_type == <span class="hljs-string">&#x27;Full-Time&#x27;</span> <span class="hljs-keyword">and</span> number_of_years &gt; <span class="hljs-number">4</span>) <span class="hljs-keyword">or</span> (student_type == <span class="hljs-string">&#x27;Part-Time&#x27;</span> <span class="hljs-keyword">and</span> number_of_years &gt; <span class="hljs-number">7</span>):
+    row.append(<span class="hljs-built_in">str</span>(number_of_years))
+    filtered_rows.append(row)
+</code></pre>
+<p>The code assumes that all values are strings, including the additional column &quot;NumberOfYears&quot;. It converts the number_of_years to a string using str(number_of_years) before appending it to the row list. The row values are then joined into a string using ','.join(row) before writing to the file. If we want to enforce specific data types for certain columns, we would need to perform explicit type conversions before appending the values to the row list.</p>
+</li>
+</ol>
+
+        
+        
+    </body>
+    </html>
