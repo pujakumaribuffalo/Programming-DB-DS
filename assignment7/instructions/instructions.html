@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Part 1 -- You are redoing homework 6 but using pandas dataframes</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+/* From extension ms-toolsai.jupyter */
+/* These classnames are inherited from bootstrap, but are present in most notebook renderers */
+
+.alert {
+    width: auto;
+    padding: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.alert > *:last-child {
+    margin-bottom: 0;
+}
+#preview > .alert:last-child {
+    /* Prevent this being set to zero by the default notebook stylesheet */
+    padding-bottom: 1em;
+}
+
+.alert-success {
+    /* Note there is no suitable color available, so we just copy "info" */
+    background-color: var(--theme-info-background);
+    color: var(--theme-info-foreground);
+}
+.alert-info {
+    background-color: var(--theme-info-background);
+    color: var(--theme-info-foreground);
+}
+.alert-warning {
+    background-color: var(--theme-warning-background);
+    color: var(--theme-warning-foreground);
+}
+.alert-danger {
+    background-color: var(--theme-error-background);
+    color: var(--theme-error-foreground);
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="part-1----you-are-redoing-homework-6-but-using-pandas-dataframes">Part 1 -- You are redoing homework 6 but using pandas dataframes</h1>
+<h2 id="create_df_degrees">create_df_degrees</h2>
+<ul>
+<li>Open connection to the non-normalized database and generate a 'df_degrees' dataframe that contains only the degrees. See screenshot below.</li>
+<li>df_degrees should look like</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\df_degrees.png" alt="df_degrees"></p>
+<h2 id="create_df_exams">create_df_exams</h2>
+<ul>
+<li>Open connection to the non-normalized database and generate a 'df_exams' dataframe that contains only
+the exams. See screenshot below. Sort by exam!</li>
+<li>Hints:
+<ul>
+<li><a href="https://stackoverflow.com/a/16476974">https://stackoverflow.com/a/16476974</a></li>
+<li><a href="https://stackoverflow.com/a/36108422">https://stackoverflow.com/a/36108422</a></li>
+</ul>
+</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\df_exams_1.png" alt="df_exams"></p>
+<h2 id="create_df_students">create_df_students</h2>
+<ul>
+<li>Open connection to the non-normalized database and generate a 'df_students' dataframe that contains the student first name, last name, and degree. You will need to add another StudentID column to do pandas merge.
+See screenshot below.
+You can use the original StudentID from the table.
+hint: use .split on the column name!</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\df_students.png" alt="df_students"></p>
+<h2 id="create_df_studentexamscores">create_df_studentexamscores</h2>
+<ul>
+<li>Open connection to the non-normalized database and generate a 'df_studentexamscores' dataframe that
+contains StudentID, exam and score
+See screenshot below.</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\df_studentexamscores.png" alt="df_studentexamscores"></p>
+<h1 id="setup-for-part-2-of-homework-7">Setup for Part 2 of Homework 7</h1>
+<p>In the previous homework I supplied the data for analysis. In this homework, you will generate the data and then analyze it using Pandas. You will be generating a grade sheet with 100 students, 5 homework and 4 exams. You will manipulate this grade sheet using Pandas. I will walk you through all the steps. You will be using Faker <a href="https://faker.readthedocs.io/en/master/">https://faker.readthedocs.io/en/master/</a> to generate student names.</p>
+<h2 id="part-2----step-1-generate-100-usernames-first_names-last_names">Part 2 -- Step 1 Generate 100 usernames, first_names, last_names</h2>
+<ul>
+<li>You need to generate a grade sheet with 100 students, 5 homework and 4 exams.</li>
+<li>To generate the 100 fake students, use <code>fake.name()</code> 100 hundred times. Split the name into first and last name; remember to only split on the first space!!! Generate a username, which will be the first 2 letters of the first name (lowercase) and 4 random digits using <code>np.random.randint(1000,9999)</code>. Create a Pandas dataframe with username, first_name, and last_name.</li>
+<li>return the dataframe</li>
+<li>Should look like this</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\part2_step1.png" alt="part2_step1"></p>
+<h2 id="part-2----step-2-generate-5-homework-and-4-exams">Part 2 -- Step 2 Generate 5 homework and 4 exams</h2>
+<ul>
+<li>You need to generate 5 homework and 4 exams scores using the mu (mean), sigma (std), and max score in the following table</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>mu</th>
+<th>sigma</th>
+<th>max score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hw1</td>
+<td>35</td>
+<td>9</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Hw2</td>
+<td>75</td>
+<td>15</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Hw3</td>
+<td>25</td>
+<td>7</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Hw4</td>
+<td>45</td>
+<td>10</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Hw5</td>
+<td>45</td>
+<td>5</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Exam1</td>
+<td>75</td>
+<td>20</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Exam2</td>
+<td>25</td>
+<td>8</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Exam3</td>
+<td>45</td>
+<td>9</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Exam4</td>
+<td>35</td>
+<td>10</td>
+<td>50</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Use <code>np.random.normal</code> to generate the normally distributed scores for all homework and exams.
+<ul>
+<li>np.random.normal loc and scale take a list and size takes a matrix. So generate all the scores using one line</li>
+</ul>
+</li>
+<li>Round the scores</li>
+<li>Clip the scores to be between 0 and the max score using <code>np.clip</code></li>
+<li>Create an pandas dataframe and return it</li>
+<li>Should look like this</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\part2_step2.png" alt="part2_step2"></p>
+<ul>
+<li>Describe looks like this</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\part2_step2_2.png" alt="part2_step2_2"></p>
+<h2 id="part-2----step-3-compare-mean-and-std-between-theoretical-and-generated-scores">Part 2 -- Step 3 Compare mean and std between theoretical and generated scores</h2>
+<ul>
+<li>In the last step you generated scores using the following table</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>mu</th>
+<th>sigma</th>
+<th>max score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hw1</td>
+<td>35</td>
+<td>9</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Hw2</td>
+<td>75</td>
+<td>15</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Hw3</td>
+<td>25</td>
+<td>7</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Hw4</td>
+<td>45</td>
+<td>10</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Hw5</td>
+<td>45</td>
+<td>5</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Exam1</td>
+<td>75</td>
+<td>20</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Exam2</td>
+<td>25</td>
+<td>8</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Exam3</td>
+<td>45</td>
+<td>9</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Exam4</td>
+<td>35</td>
+<td>10</td>
+<td>50</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>In this section, extract the mean and std from <code>describe()</code> and compare it against the theoretical mean and std. Round the difference to two decimal places.</li>
+<li>Make sure to round the describe() to two decimal places.</li>
+<li>Return the dataframe</li>
+<li>The dataframe should look like this</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\part2_step3_1.png" alt="part2_step3"></p>
+<ul>
+<li>NOTE: Just use <code>df2_scores</code> inside your function</li>
+</ul>
+<h2 id="part-2----step-4-combine-student-df-with-scores-df-and-calculate-scaled-score">Part 2 -- Step 4 Combine student df with scores df and calculate scaled score</h2>
+<ul>
+<li>Scale <code>df2_scores</code> (raw_score/max_score)*100 and round it and combine with <code>df2_students</code></li>
+<li>Max grade is given in the following table</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>max score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hw1</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Hw2</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Hw3</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Hw4</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Hw5</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Exam1</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Exam2</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Exam3</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Exam4</td>
+<td>50</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Return DF</li>
+<li>Dataframe should look like this</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\part2_step4.png" alt="part2_step4"></p>
+<p>NOTE: both <code>df2_students</code> and <code>df_scores</code> should be available inside your function.</p>
+<h2 id="part-2----step-5-find-all-students-with-academic-integrity-ai-issues">Part 2 -- Step 5 Find all students with Academic Integrity (AI) Issues</h2>
+<ul>
+<li>Open up <code>part2_step5-input.csv</code> file. This has the same data as the last step except that I have added some <code>AI_ISSUE</code> values and removed some values. When you read in this csv file, you will see some <code>AI_ISSUE</code> text and some empty columns, which will be <code>NaN</code> in the dataframe.</li>
+<li>NOTE -- the first student has all 100s for sanity check.</li>
+<li>NOTE -- the second student has a missing homework and exam for checking your calculations.</li>
+<li>You need to find all the students that have AI issues. The dataframe should contain username, first_name, last_name, and column called <code>AI_count</code>. Make sure to reset the index</li>
+<li>It should look like this</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\part2_step5_1.png" alt="part2_step5"></p>
+<h2 id="part-2----step-6">Part 2 -- Step 6</h2>
+<ul>
+<li>
+<p>Open up <code>part2_step5-input.csv</code> file. This has the same data as the last step except that I have added some <code>AI_ISSUES</code> values and removed some values, meaning the student did not submit the homework or take the exam. When you read in this csv file, you will see some <code>AI_ISSUES</code> text and some empty columns, which will be <code>NaN</code> in the dataframe.</p>
+</li>
+<li>
+<p>Do the following steps in order</p>
+</li>
+</ul>
+<ol>
+<li>Replace all <code>AI_ISSUE</code> text with 0.</li>
+<li>For any missing homework, replace it with the average of the student's other homework</li>
+<li>For any missing exam, replace it with the average of the student's other exams.</li>
+<li>When doing the above two steps, convert the homework and exam columns to float using them to calcuate the mean or std <code>.astype('float')</code></li>
+<li>Create a <code>Grade</code> column that calculates the grade. Each homework is worth 5% and each exam1-3 are worth 20% and exam4 is worth 15%. Don't forget to Round!</li>
+<li>Create a <code>LetterGrade</code> column that maps the grade to a letter Grade using apply();
+80&gt;=A
+70&gt;=B
+50&gt;=C
+40&gt;=D
+40&lt;F</li>
+<li>Append a <code>mean</code> row to the dataframe; hint you have to name your series.  Round!</li>
+<li>Append a <code>std</code> row to the dataframe; hint you have to name your series. Round!</li>
+<li>Return the dataframe</li>
+</ol>
+<ul>
+<li>
+<p>HINT: <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html</a></p>
+</li>
+<li>
+<p>HINT: Row two has a missing exam and homework. Use it to verify your calculations.</p>
+</li>
+<li>
+<p>It should look like this</p>
+</li>
+</ul>
+<p><img src="file:///c:\Users\mkhaw\github\eas503_assignments\fall2022\assignment6\part2_step6_3.png" alt="part2_step6"></p>
+
+        
+        
+    </body>
+    </html>

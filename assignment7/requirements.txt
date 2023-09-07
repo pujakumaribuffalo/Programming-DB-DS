@@ -1,0 +1,4 @@
+gradescope-utils
+ipython
+pandas
+Faker
